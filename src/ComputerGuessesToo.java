@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,15 +10,23 @@ public class ComputerGuessesToo {
         ComputerUser computerUser = new ComputerUser("ComputerUser", words.get(new Random().nextInt(words.size())));
         Scanner sc = new Scanner(System.in);
         System.out.println("Add meg a felhasználónevedet a játékhoz!");
-        System.out.println("Add meg, milyen 5 betű szóra gondoltál( az sz,ty,cs,... 2 betűnek számít");
+        String userName = sc.nextLine();
+        System.out.println("Add meg, milyen 5 betű szóra gondoltál( az \"sz\", \"ty\", \"cs\",... 2 betűnek számít");
+        String imaginedWord = sc.nextLine();
+        while (!(words.contains(imaginedWord))){
+            System.out.println("Gondolj másik szóra, mert ezt a szót a számítógép nem ismeri, így nincs eséle kitalálni");
+            imaginedWord = sc.nextLine();
+        }
         UserPlayer userPlayer = new UserPlayer("Mate", "abból");
         System.out.println(computerUser.getImaginedWord());
         ArrayList<String> tipWordsOfUser = new ArrayList<>();
         ArrayList<String> tipWordsOfComputer = new ArrayList<>();
+        int k = 0;
+        HashMap<Integer,ArrayList<String>> hashMap=new HashMap();
         for (int i = 0; 1 == 1; i++) {
             System.out.println(i+1 + " . kör");
             tryToGuessCW(computerUser, tipWordsOfUser);
-            computerGuess(words, computerUser, userPlayer,i);
+            computerGuess(words, computerUser, userPlayer,i,k,hashMap);
         }
     }
 
@@ -35,10 +44,12 @@ public class ComputerGuessesToo {
         System.out.println(Play.playOneTurnWithComputer(computerUser, tipWordsArrayList));
     }
 
-    public static void computerGuess(ArrayList<String> words, ComputerUser computerUser, UserPlayer userPlayer, int i) throws FileNotFoundException {
+    public static void computerGuess(ArrayList<String> words, ComputerUser computerUser, UserPlayer userPlayer, int i, int k, HashMap<Integer, ArrayList<String>> hashMap) throws FileNotFoundException {
         //     the userPlayer imagine one word and the computer try to guess
       ComputerGuessStrategy.computerGuessStepByStep(words,computerUser,userPlayer,i);
       ComputerGuessStrategy.computerGuessRandom(words,computerUser,userPlayer);
+
+      ComputerGuessStrategy.computerGuessMateStrategy(words,computerUser,userPlayer,k,  hashMap);
 
             }
 

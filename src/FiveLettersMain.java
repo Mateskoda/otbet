@@ -13,9 +13,9 @@ public class FiveLettersMain {
         wr.write(words.get(i));
         wr.write("\n");
         }
-
         wr.close();
-            ComputerGuessesToo.computerGuessesToo(words);
+
+    //        ComputerGuessesToo.computerGuessesToo(words);
       //    Ötbetűs(**)
 //    Az ötbetűs játék egy memória és logikai játék. A játékot két vagy
 //    több játékos játszhatja. Két játékos esetén a játék a következőképpen
