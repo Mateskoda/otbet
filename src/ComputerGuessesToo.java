@@ -17,16 +17,17 @@ public class ComputerGuessesToo {
             System.out.println("Gondolj másik szóra, mert ezt a szót a számítógép nem ismeri, így nincs eséle kitalálni");
             imaginedWord = sc.nextLine();
         }
-        UserPlayer userPlayer = new UserPlayer("Mate", "abból");
+        UserPlayer userPlayer = new UserPlayer(userName, imaginedWord);
         System.out.println(computerUser.getImaginedWord());
         ArrayList<String> tipWordsOfUser = new ArrayList<>();
         ArrayList<String> tipWordsOfComputer = new ArrayList<>();
         int k = 0;
-        HashMap<Integer,ArrayList<String>> hashMap=new HashMap();
-        for (int i = 0; 1 == 1; i++) {
+        HashMap<Integer,ArrayList<String>> notContainedChars=new HashMap();
+        HashMap<Integer,ArrayList<String>> containedChars=new HashMap();
+        for (int i = 0; i <= 3; i++) {
             System.out.println(i+1 + " . kör");
-            tryToGuessCW(computerUser, tipWordsOfUser);
-            computerGuess(words, computerUser, userPlayer,i,k,hashMap);
+            //tryToGuessCW(computerUser, tipWordsOfUser);
+            computerGuess(words, computerUser, userPlayer,i,k,notContainedChars,containedChars,tipWordsOfComputer,tipWordsOfUser);
         }
     }
 
@@ -44,12 +45,13 @@ public class ComputerGuessesToo {
         System.out.println(Play.playOneTurnWithComputer(computerUser, tipWordsArrayList));
     }
 
-    public static void computerGuess(ArrayList<String> words, ComputerUser computerUser, UserPlayer userPlayer, int i, int k, HashMap<Integer, ArrayList<String>> hashMap) throws FileNotFoundException {
+    public static void computerGuess(ArrayList<String> words, ComputerUser computerUser, UserPlayer userPlayer, int i, int k, HashMap<Integer, ArrayList<String>> notContainedChars, HashMap<Integer, ArrayList<String>> containedChars, ArrayList<String> tipWordsOfComputer, ArrayList<String> tipWordsOfUser) throws FileNotFoundException {
         //     the userPlayer imagine one word and the computer try to guess
-      ComputerGuessStrategy.computerGuessStepByStep(words,computerUser,userPlayer,i);
-      ComputerGuessStrategy.computerGuessRandom(words,computerUser,userPlayer);
+      //ComputerGuessStrategy.computerGuessStepByStep(words,computerUser,userPlayer,i);
+      //ComputerGuessStrategy.computerGuessRandom(words,computerUser,userPlayer);
 
-      ComputerGuessStrategy.computerGuessMateStrategy(words,computerUser,userPlayer,k,  hashMap);
+      ComputerGuessStrategy.computerGuessiv(words,computerUser,userPlayer,i,notContainedChars,containedChars,  tipWordsOfComputer, tipWordsOfUser);
+      //ComputerGuessStrategy.computerGuessMateStrategy(words,computerUser,userPlayer,k,hashMap);
 
             }
 
